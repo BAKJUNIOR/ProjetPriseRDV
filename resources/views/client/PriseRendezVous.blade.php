@@ -55,12 +55,12 @@
             <input type="email" class="form-control" id="email" name="email" required>
 
             <label for="date">Date du Rendez-vous :</label>
-            <input type="date" class="form-control" id="date" name="date" required>
+            <input type="date" class="form-control" id="date" name="date" onchange="checkDay()" required>
         </div>
 
         <div class="form-group">
             <label for="heure">Heure du Rendez-vous :</label>
-            <input type="time" class="form-control" id="heure" name="heure" required>
+            <input type="time" class="form-control" id="heure" name="heure" min="09:00" max="19:00" required>
         </div>
 
         <button type="submit" class="btn btn-warning" > Soumettre Rendez-vous</button>
@@ -85,3 +85,13 @@
 
 @endsection
 
+<script>
+        function checkDay() {
+            var selectedDate = new Date(document.getElementById("date").value);
+            // 0 correspond à dimanche, 1 correspond à lundi, ..., 6 correspond à samedi
+            if (selectedDate.getDay() === 1) {
+                alert("Nous somme fermé les lundi");
+                document.getElementById("date").value = "";
+            }
+        }
+</script>

@@ -13,6 +13,8 @@ use App\Http\Controllers\SliderController;
 use App\Http\Controllers\UproleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserGestionController;
+use App\Models\RendezVouse;
+use FontLib\Table\Type\name;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,8 +40,9 @@ Route::middleware(['auth'])->group(function (){
     Route::redirect('/home' , '/');
     Route::get('/admin' , [AdminController::class , 'index'] )->name('admin')->middleware('userAcces:admin');
     Route::get('/user' , [UserGestionController::class , 'index'] )->name('user')->middleware('userAcces:user'); // page d'inscription
-
-
+    Route::get('/RendezVous', [RendezVousController::class, 'RendezVousUser'])->name('RendezVous')->middleware('userAcces:user');
+    Route::get('/AllRendezVousUser', [RendezVousController::class, 'AllUserRendezVous'])->name('AllRendezVousUser')->middleware('userAcces:user');
+    Route::get('/confirmerRendezVous/{id}',[RendezVousController::class, 'ConfirmationRendezVous'])->name('confirmerRendezVous')->middleware('userAcces:user');
     //gestion des utilisateurs
     Route::get('/AjouterUtilisateur', [UserGestionController::class, 'AjouterUtilisateur'])->name('AjouterUtilisateur');
     Route::post('/AjouterUtilisateur', [UserGestionController::class, 'create']);
@@ -48,6 +51,7 @@ Route::middleware(['auth'])->group(function (){
     Route::post('/deleteUtilisateur/{id}', [UserGestionController::class, 'deleteUtilisateur']);
     Route::post('/uprole/{id}', [UproleController::class, 'index']);
     Route::get('/userGestion' , [UserGestionController::class, 'index'] )->name('userGestion');
+
 
 
     // Admin Controller routes

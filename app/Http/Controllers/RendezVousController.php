@@ -63,6 +63,25 @@ class RendezVousController extends Controller
         }
     }
 
+    public function RendezVousUser(){
+        return view('Dossier_admins.page_user.GestionRendezVous');
+    }
+
+    public function AllUserRendezVous(){
+        $rendezvous = RendezVouse::whereIn('user_id',[Auth::user()->id,1])->with('client','user','service')->get();
+        return response()->json($rendezvous);
+    }
+
+    public function ConfirmationRendezVous($rendezVous){
+        $rendezVous = RendezVouse::where('id', $rendezVous);
+        if($rendezVous->get()[0]->status == "confirme"){
+            $message = 'Déjà confirmer par '.$rendezVous->get()[0]->user->fullname;
+        }else{
+            $rendezVous->update(['status'=>'confirme','user_id'=>Auth::user()->id]);
+            $message = 'Confirmation éfectuer.';
+        }
+        return response()->json($message);
+    }
 
 
 }
