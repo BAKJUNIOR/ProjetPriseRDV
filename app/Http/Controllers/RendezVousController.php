@@ -13,14 +13,18 @@ use Illuminate\Support\Facades\Session;
 
 class RendezVousController extends Controller
 {
-    public function PriseRendezVous()
+    public function PriseRendezVous($status = null)
     {
         // Sélectionnez uniquement les utilisateurs avec le rôle 'user'
 
         $services = Service::all();
         $employes = User::where('role', 'user')->get();
+        if($status == null){
+            return view('client.PriseRendezVous', compact('services', 'employes'));
+        }else{
+            return view('client.PriseRendezVous', compact('services', 'employes','status'));
+        }
 
-        return view('client.PriseRendezVous', compact('services', 'employes'));
     }
 
 
@@ -55,8 +59,7 @@ class RendezVousController extends Controller
             $rendezVous->save();
 
             // Autres opérations...
-
-            return view('client.PriseRendezVous')->with('status', 'Rendez-vous créé avec succès!');
+            return $this->PriseRendezVous('Rendez-vous créé avec succès!');
         } else {
             // L'utilisateur n'est pas un client, redirigez-le vers la page de connexion
             return redirect('/connexion')->with('error', 'Vous devez être connecté pour prendre un rendez-vous.');

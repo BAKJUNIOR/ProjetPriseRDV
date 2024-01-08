@@ -166,7 +166,6 @@
                 dataType: 'json',
                 success: function(data) {
                     if(document.getElementById(data[0].id) == null){
-
                             var nouvelleLigne = tbody.insertRow();
                             nouvelleLigne.id = `${data[0].id}`;
                             var nouvelleCellule = nouvelleLigne.insertCell(0);
@@ -182,7 +181,6 @@
                             nouvelleCellule.innerHTML = data[0].status;
                             var nouvelleCellule = nouvelleLigne.insertCell(5);
                             nouvelleCellule.innerHTML  = '<button onclick="ConfirmerRendezVous('+data[0].id+')" class="btn btn-success btn-circle" ><i class="fas fa-check"></i></button> <button class="btn btn-danger btn-circle"><i class="fas fa-trash"></i></button>';
-
                     }
 
                 },

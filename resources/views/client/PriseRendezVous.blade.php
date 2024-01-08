@@ -45,14 +45,9 @@
             </select>
         </div>
 
-        <div class="form-group">
-            <label for="heure">Nom & prénom :</label>
-            <input type="text" class="form-control" id="fullname" name="fullname" required>
-        </div>
+       
 
         <div class="form-group">
-            <label for="heure">Email:</label>
-            <input type="email" class="form-control" id="email" name="email" required>
 
             <label for="date">Date du Rendez-vous :</label>
             <input type="date" class="form-control" id="date" name="date" onchange="checkDay()" required>
